@@ -7,6 +7,7 @@ ___
 - Figure out nav UX
 - Figure out UI/prototype layout
 - Figure out tools needed
+
 ___
 
 ## Features and Functionality
@@ -38,6 +39,7 @@ ___
         - User can enter cash per hour to calc. cash per day
         - Display total revenue, tax amount, and cash after tax
           - Can enter tax percentage
+
 ___
 
 ## Nav UX
@@ -60,6 +62,7 @@ ___
   - Mostly white (boring)
 4. **Color Scheme #4:**
   - Customizable (starts off as #3)
+
 ___
 
 ## Development and Production Tools
