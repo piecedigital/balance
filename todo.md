@@ -52,13 +52,13 @@ ___
 ___
 
 ## UI/Layout
-1. ### Color Scheme #1:
+1. **Color Scheme #1:**
   Shades of green/US currency colors
-2. ### Color Scheme #2:
+2. **Color Scheme #2:**
   Localized currency colors
-3. ### Color Scheme #3:
+3. **Color Scheme #3:**
   Mostly white (boring)
-4. ### Color Scheme #4:
+4. **Color Scheme #4:**
   Customizable (starts off as #3)
 ___
 
