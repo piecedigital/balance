@@ -1,5 +1,5 @@
-# Cash Check
-#### Track The Cash You Earn and Spend
+# Balance
+#### Balance your funds with ease
 ___
 The goal of this project is to create a web application that makes it easy to manage your money.
 
