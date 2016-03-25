@@ -1,5 +1,5 @@
-# Balance
-#### Balance your funds with ease
+# Cashulator
+#### Calculate your revenue and expenses with ease
 ___
 The goal of this project is to create a web application that makes it easy to manage your money.
 

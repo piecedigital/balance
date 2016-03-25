@@ -1,5 +1,5 @@
-# Balance
-#### Balance your funds with ease
+# Cashulator
+#### Calculate your revenue and expenses with ease
 ___
 
 ## To Do
@@ -30,29 +30,50 @@ ___
 
 - Page: Dashboard
   - Enter cash earnings of the year
-    - User can enter revenue per month and source of income. Value will be used to calculate cash per year
-      - Dollars and cents should have separate inputs
+    - User can specify this money block to be a specific year or general
+    - User can create a specified block for each year
+    - User can create one unspecified block for recurring revenue/expenses
+      - Specific years can be indicate for each source where no revenue/expense occurs
+    - User can enter revenue and source of income. Value will be used to calculate cash per year
+    - User can enter expenses and source of income. Value will be used to calculate cash per year
+      - ... (2^)
+        - If the current money block has a specified year the revenue/expense will be one time, else it will be per month,
+        - Dollars and cents should have separate inputs
         - Block key inputs that aren't within this key code range: 48-57, 188
-        - Allow 188 (comma) for dollar input
-        - Allow 9 (tab) for navigation
+        - Allow key code 188 (comma) for dollar input
+        - Allow key code 9 (tab) for navigation
     - User can enter multiple revenue values and a source for each
     - User can enter tax percentage to be deducted and displayed
     - Display total revenue before taxes, tax amount, and cash after taxes
     - Enter cash earnings of the month
-      - User can enter revenue per day and source of income. Value will be used to calculate cash per month
-        - Dollars and cents should have separate inputs
+      - User can specify this money block to be a specific month or general
+      - User can create a specified block for each month
+      - User can create one unspecified block for recurring revenue/expenses
+        - Specific months can be indicate for each source where no revenue/expense occurs
+      - User can enter revenue and source of income. Value will be used to calculate cash per month
+      - User can enter expenses and source of income. Value will be used to calculate cash per month
+        - ... (2^)
+          - If the current money block has a specified month the revenue/expense will be one time, else it will be per day,
+          - Dollars and cents should have separate inputs
           - Block key inputs that aren't within this key code range: 48-57, 188
-          - Allow 188 (comma) for dollar input
-          - Allow 9 (tab) for navigation
+          - Allow key code 188 (comma) for dollar input
+          - Allow key code 9 (tab) for navigation
       - User can enter multiple revenue values and a source for each
       - User can enter tax percentage to be deducted and displayed
       - Display total revenue before taxes, tax amount, and cash after taxes
       - Enter cash earnings of the day
-        - User can enter revenue per hour and source of income. Value will be used to calculate cash per day
-          - Dollars and cents should have separate inputs
+        - User can specify this money block to be a specific day or general
+        - User can create a specified block for each day
+        - User can create one unspecified block for recurring revenue/expenses
+          - Specific days can be indicate for each source where no revenue/expense occurs
+        - User can enter revenue and source of income. Value will be used to calculate cash per day
+        - User can enter expenses and source of income. Value will be used to calculate cash per day
+          - ... (2^)
+            - If the current money block has a specified day the revenue/expense will be one time, else it will be per hour,
+            - Dollars and cents should have separate inputs
             - Block key inputs that aren't within this key code range: 48-57, 188
-            - Allow 188 (comma) for dollar input
-            - Allow 9 (tab) for navigation
+            - Allow key code 188 (comma) for dollar input
+            - Allow key code 9 (tab) for navigation
         - User can enter multiple revenue values and a source for each
         - User can enter tax percentage to be deducted and displayed
         - Display total revenue before taxes, tax amount, and cash after taxes
@@ -153,6 +174,7 @@ ___
   "String_firstName": String,
   "String_lastName": String,
   "String_email": String, // regex: /([a-z0-9]){1,}([.][a-z0-9]{1,})?([@][a-z0-9]{2,}[.][a-z]{1,3})([.][a-z]{1,2})?/i
+  "String_password": String,
   "String_username": String, // regex: /^[a-z0-9_-]{3,}$/gi
   // ...  // used for login and to connect the user document in the "users" collection
   "String_accountType": String, // ["basic", "premium"]
