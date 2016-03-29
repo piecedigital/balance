@@ -30,50 +30,44 @@ ___
 
 - Page: Dashboard
   - Enter cash earnings of the year
-    - User can specify this money block to be a specific year or general
-    - User can create a specified block for each year
-    - User can create one unspecified block for recurring revenue/expenses
-      - Specific years can be indicate for each source where no revenue/expense occurs
-    - User can enter revenue and source of income. Value will be used to calculate cash per year
-    - User can enter expenses and source of income. Value will be used to calculate cash per year
-      - ... (2^)
-        - If the current money block has a specified year the revenue/expense will be one time, else it will be per month,
-        - Dollars and cents should have separate inputs
-        - Block key inputs that aren't within this key code range: 48-57, 188
-        - Allow key code 188 (comma) for dollar input
-        - Allow key code 9 (tab) for navigation
+    - User can specify this money block to be a specific year or all
+      - Specified years can be indicated for each source where no revenue/expense occurs
+    - User can enter revenue and source of income
+    - User can enter expenses and source of income
+    - ... (2^)
+      - If the current money block has a specified year the revenue/expense will be one time, else it will be per month,
+      - Dollars and cents should have separate inputs
+      - Block key inputs that aren't within this key code range: 48-57, 188
+      - Allow key code 188 (comma) for dollar input
+      - Allow key code 9 (tab) for navigation
     - User can enter multiple revenue values and a source for each
     - User can enter tax percentage to be deducted and displayed
     - Display total revenue before taxes, tax amount, and cash after taxes
     - Enter cash earnings of the month
-      - User can specify this money block to be a specific month or general
-      - User can create a specified block for each month
-      - User can create one unspecified block for recurring revenue/expenses
-        - Specific months can be indicate for each source where no revenue/expense occurs
-      - User can enter revenue and source of income. Value will be used to calculate cash per month
-      - User can enter expenses and source of income. Value will be used to calculate cash per month
-        - ... (2^)
-          - If the current money block has a specified month the revenue/expense will be one time, else it will be per day,
-          - Dollars and cents should have separate inputs
-          - Block key inputs that aren't within this key code range: 48-57, 188
-          - Allow key code 188 (comma) for dollar input
-          - Allow key code 9 (tab) for navigation
+      - User can specify this money block to be a specific month or all
+        - Specified months can be indicated for each source where no revenue/expense occurs
+      - User can enter revenue and source of income
+      - User can enter expenses and source of income
+      - ... (2^)
+        - If the current money block has a specified month the revenue/expense will be one time, else it will be per day,
+        - Dollars and cents should have separate inputs
+        - Block key inputs that aren't within this key code range: 48-57, 188
+        - Allow key code 188 (comma) for dollar input
+        - Allow key code 9 (tab) for navigation
       - User can enter multiple revenue values and a source for each
       - User can enter tax percentage to be deducted and displayed
       - Display total revenue before taxes, tax amount, and cash after taxes
       - Enter cash earnings of the day
-        - User can specify this money block to be a specific day or general
-        - User can create a specified block for each day
-        - User can create one unspecified block for recurring revenue/expenses
-          - Specific days can be indicate for each source where no revenue/expense occurs
-        - User can enter revenue and source of income. Value will be used to calculate cash per day
-        - User can enter expenses and source of income. Value will be used to calculate cash per day
-          - ... (2^)
-            - If the current money block has a specified day the revenue/expense will be one time, else it will be per hour,
-            - Dollars and cents should have separate inputs
-            - Block key inputs that aren't within this key code range: 48-57, 188
-            - Allow key code 188 (comma) for dollar input
-            - Allow key code 9 (tab) for navigation
+        - User can specify this money block to be a specific day or all
+          - Specified days can be indicated for each source where no revenue/expense occurs
+        - User can enter revenue and source of income
+        - User can enter expenses and source of income
+        - ... (2^)
+          - If the current money block has a specified day the revenue/expense will be one time, else it will be per hour,
+          - Dollars and cents should have separate inputs
+          - Block key inputs that aren't within this key code range: 48-57, 188
+          - Allow key code 188 (comma) for dollar input
+          - Allow key code 9 (tab) for navigation
         - User can enter multiple revenue values and a source for each
         - User can enter tax percentage to be deducted and displayed
         - Display total revenue before taxes, tax amount, and cash after taxes
@@ -81,25 +75,22 @@ ___
 
 ___
 
-## Nav UX
+## Dashboard Navigation
 - Begin at: Year Cash Earnings
-- Can navigate directly to: [Month|Week|Day] Cash Earnings
-  - Month Cash Earnings
-  - Can navigate directly to: [Week|Day] Cash Earnings
-    - Week Cash Earnings
-    - Can navigate directly to: Day Cash Earnings
-      - Day Cash Earnings
+- Can navigate directly to: [Month|Week|Day] block
+  - Month block
+    - Can navigate directly to: [Year] block
+      - Any changes to the block must be saved/discarded before navigating
+    - Can navigate directly to: Day block
+      - Day block
+        - Can navigate directly to: [Month|Year] block
 
 ___
 
 ## UI/Layout
 1. **Color Scheme #1:**
-  - Shades of green/US currency colors
+  - Black and Orange
 2. **Color Scheme #2:**
-  - Localized currency colors
-3. **Color Scheme #3:**
-  - Mostly white (boring)
-4. **Color Scheme #4:**
   - Customizable (starts off as #3)
 
 ___
@@ -143,6 +134,7 @@ ___
     - routes.js (route all handling)
     - accounts.js (handles all user account operations)
     - mongo-querier.js (handles all DB query operations)
+    - callback-router.js (handles all callbacks in an array to avoid CB hell)
   - public/
     - js/
       - jquery-1.12.x.min.js
@@ -175,7 +167,7 @@ ___
   "String_lastName": String,
   "String_email": String, // regex: /([a-z0-9]){1,}([.][a-z0-9]{1,})?([@][a-z0-9]{2,}[.][a-z]{1,3})([.][a-z]{1,2})?/i
   "String_password": String,
-  "String_username": String, // regex: /^[a-z0-9_-]{3,}$/gi
+  "String_Immut_username": String, // regex: /^[a-z0-9_-]{3,}$/gi
   // ...  // used for login and to connect the user document in the "users" collection
   "String_accountType": String, // ["basic", "premium"]
   "Object_ban": {
@@ -197,34 +189,87 @@ ___
 ``` js
 {
   "String_username": String, // used to connect the user document in the "users" collection
+  "Array_sourceNames": [ // central source for the source names of revenue/expenses
+    {
+      "sourceName": String,
+      "sourceNameFlattened": String // source name is lower-cased and spaces are hyphenated
+    },
+    ...
+  ],
   "Object_moneyManagement": {
     "Int_year": Number,
-    "Array_sourcesOfIncome": [
+    "Array_sourcesOfRevenue": [
       {
         "String_sourceName": String,
         "Int_revenuePerMonth": Number,
-        "Int_taxPercentage": Number // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+        "Int_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+        "Array_revenueExceptions": [
+          Number,
+          ...
+        ]
       },
       ...
-    ]
+    ],
+    "Array_sourcesOfExpenses": [
+      {
+        "String_sourceName": String,
+        "Int_expensePerMonth": Number,
+        "Array_expenseExceptions": [
+          Number,
+          ...
+        ]
+      },
+      ...
+    ],
     "Array_months": [
       {
         "String_month": String, // January
-        "Array_sourcesOfIncome": [
+        "Array_sourcesOfRevenue": [
           {
             "String_sourceName": String,
             "Int_revenuePerDay": Number,
-            "Int_taxPercentage": Number // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+            "Int_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+            "Array_revenueExceptions": [
+              Number,
+              ...
+            ]
           },
           ...
-        ]
+        ],
+        "Array_sourcesOfExpenses": [
+          {
+            "String_sourceName": String,
+            "Int_expensePerDay": Number,
+            "Array_expenseExceptions": [
+              Number,
+              ...
+            ]
+          },
+          ...
+        ],
         "Array_days": [ // equal to number of days of the month
           {
-            "Array_sourcesOfIncome": [
+            "String_day": String // day of the month
+            "Array_sourcesOfRevenue": [
               {
                 "String_sourceName": String,
                 "Float_revenuePerHour": Number,
-                "Float_taxPercentage": Number // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+                "Float_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+                "Array_revenueExceptions": [
+                  Number,
+                  ...
+                ]
+              },
+              ...
+            ]
+            "Array_sourcesOfExpenses": [
+              {
+                "String_sourceName": String,
+                "Float_expensePerHour": Number,
+                "Array_expenseExceptions": [
+                  Number,
+                  ...
+                ]
               },
               ...
             ]

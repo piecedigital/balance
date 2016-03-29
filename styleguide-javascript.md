@@ -14,6 +14,13 @@ var shoehorn = require("shoehornjs");
 
 var String_fooBar = shoehorn().String("foobar");
 ```
+
+For variables that are (to be treated as) immutable you must inster "Immut_" right after the time. Remember that underscores must separate the type, immutability, and variable name.
+```js
+const String_Immut_fooBar = shoehorn().String("foobar");
+```
+**Note:** For server code `const` should be used when assigning data to immutable variables.
+
 Q: Why use [Shoehornjs](http://npmjs.com/package/shoehornjs) and this  manner of variable creation instead of something like TypeScript?
 
 A: I simple don't want it. I don't feel the need for it. And I don't want everything I write to go through a processor. I don't think it'll make anything faster or better for me. I'm not one of those people that get hung up on static typing. I can live with it, I can live without it; it makes no never mind to me.
