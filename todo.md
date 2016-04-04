@@ -29,49 +29,7 @@ ___
     - "Customize your experience; pick the color scheme of your dashboard"
 
 - Page: Dashboard
-  - Enter cash earnings of the year
-    - User can specify this money block to be a specific year or all
-      - Specified years can be indicated for each source where no revenue/expense occurs
-    - User can enter revenue and source of income
-    - User can enter expenses and source of income
-    - ... (2^)
-      - If the current money block has a specified year the revenue/expense will be one time, else it will be per month,
-      - Dollars and cents should have separate inputs
-      - Block key inputs that aren't within this key code range: 48-57, 188
-      - Allow key code 188 (comma) for dollar input
-      - Allow key code 9 (tab) for navigation
-    - User can enter multiple revenue values and a source for each
-    - User can enter tax percentage to be deducted and displayed
-    - Display total revenue before taxes, tax amount, and cash after taxes
-    - Enter cash earnings of the month
-      - User can specify this money block to be a specific month or all
-        - Specified months can be indicated for each source where no revenue/expense occurs
-      - User can enter revenue and source of income
-      - User can enter expenses and source of income
-      - ... (2^)
-        - If the current money block has a specified month the revenue/expense will be one time, else it will be per day,
-        - Dollars and cents should have separate inputs
-        - Block key inputs that aren't within this key code range: 48-57, 188
-        - Allow key code 188 (comma) for dollar input
-        - Allow key code 9 (tab) for navigation
-      - User can enter multiple revenue values and a source for each
-      - User can enter tax percentage to be deducted and displayed
-      - Display total revenue before taxes, tax amount, and cash after taxes
-      - Enter cash earnings of the day
-        - User can specify this money block to be a specific day or all
-          - Specified days can be indicated for each source where no revenue/expense occurs
-        - User can enter revenue and source of income
-        - User can enter expenses and source of income
-        - ... (2^)
-          - If the current money block has a specified day the revenue/expense will be one time, else it will be per hour,
-          - Dollars and cents should have separate inputs
-          - Block key inputs that aren't within this key code range: 48-57, 188
-          - Allow key code 188 (comma) for dollar input
-          - Allow key code 9 (tab) for navigation
-        - User can enter multiple revenue values and a source for each
-        - User can enter tax percentage to be deducted and displayed
-        - Display total revenue before taxes, tax amount, and cash after taxes
-          - Can enter tax percentage
+  - [Dashboard UX and Features](https://github.com/piecedigital/cash-check/blob/master/dashboard-features.md)
 
 ___
 
@@ -133,7 +91,7 @@ ___
   - custom_modules/
     - routes.js (route all handling)
     - accounts.js (handles all user account operations)
-    - mongo-querier.js (handles all DB query operations)
+    - mongo-queries.js (handles all DB query operations)
     - callback-router.js (handles all callbacks in an array to avoid CB hell)
   - public/
     - js/
