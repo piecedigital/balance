@@ -1,0 +1,30 @@
+{
+  "name": "cashulator",
+  "version": "0.0.1",
+  "description": "Calculate your revenue and expenses with ease",
+  "main": "app.js",
+  "scripts": {
+    "test": "jasmine-node test-trigger.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piecedigital/cashulator.git"
+  },
+  "keywords": [
+    "revenue",
+    "cash",
+    "money",
+    "calculator",
+    "calculation",
+    "tracking"
+  ],
+  "author": {
+    "name": "Darryl Dixon",
+    "email": "contact@piecedigital.net"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piecedigital/cashulator/issues"
+  },
+  "homepage": "https://github.com/piecedigital/cashulator#readme"
+}

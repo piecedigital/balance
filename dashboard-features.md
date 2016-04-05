@@ -13,3 +13,13 @@ Can toggle between parent block evaluation and child block evaluation **[3]** |Y
 - Block key inputs that aren't within this key code range: 48-57, 188
 - Allow key code 188 (comma) for dollar input
 - Allow key code 9 (tab) for navigation
+
+- Year block
+- Can navigate directly to: Child Month block
+  - Month block
+    - Can navigate directly to: Parent Year block
+      - Any changes to the block must be saved/discarded before navigating
+    - Can navigate directly to: Child Day block
+      - Day block
+        - Can navigate directly to: Parent Month block
+          - Any changes to the block must be saved/discarded before navigating

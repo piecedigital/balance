@@ -1,0 +1,10 @@
+- Hero image
+  - Title: "Balance"
+  - Subtitle: "Money Management Made Simple and Easy"
+- About section
+  - Title: "What Is Balance?"
+  - Body: "Balance is a simple-to-use web application that makes it easy to manage your money. Track where your money is coming from, where it's going, where it needs to go, and, ultimately, what goes in your pocket!"
+- Key Features section
+  - "Manage your money in detail, down to the day"
+  - "View individual stats and metrics in real time, or with the click of a button"
+  - "Customize your experience, from the color scheme of your dashboard, to the style of data visualization"

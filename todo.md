@@ -9,6 +9,7 @@ ___
   - ... UI/prototype layout
   - ... tools needed
   - ... style guide
+  - ... error codes
   - ... file structure and custom modules
   - ... data structures
 
@@ -17,31 +18,10 @@ ___
 ## Features and Functionality
 - Pages - Home(landing page), Signup/Login, About, Terms and Conditions, Dashboard(when signed in)
 - Page: Home
-  - Hero image
-    - Title: "Balance"
-    - Subtitle: "Money Management Made Simple and Easy"
-  - About section
-    - Title: "What Is Balance?"
-    - Body: "Balance is a simple-to-use web application that makes it easy to manage your money. Track where your money is coming from, where it's going, where it needs to go, and, ultimately, what goes in your pocket!"
-  - Key Features section
-    - "Manage your money in detail, down to the day"
-    - "View individual stats and metrics in real time, or with the click of a button"
-    - "Customize your experience; pick the color scheme of your dashboard"
+  - [Home Page UX and Features](https://github.com/piecedigital/cash-check/blob/master/home-page.md)
 
 - Page: Dashboard
   - [Dashboard UX and Features](https://github.com/piecedigital/cash-check/blob/master/dashboard-features.md)
-
-___
-
-## Dashboard Navigation
-- Begin at: Year Cash Earnings
-- Can navigate directly to: [Month|Week|Day] block
-  - Month block
-    - Can navigate directly to: [Year] block
-      - Any changes to the block must be saved/discarded before navigating
-    - Can navigate directly to: Day block
-      - Day block
-        - Can navigate directly to: [Month|Year] block
 
 ___
 
@@ -84,6 +64,7 @@ ___
 ### Style guide
 - [JavaScript Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-javascript.md)
 - [CSS Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-css.md)
+- [Error Codes Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-error-codes.md) (may not keep this)
 
 ### File Structure and Custom modules
 - /
@@ -92,7 +73,7 @@ ___
     - routes.js (route all handling)
     - accounts.js (handles all user account operations)
     - mongo-queries.js (handles all DB query operations)
-    - callback-router.js (handles all callbacks in an array to avoid CB hell)
+    - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell)
   - public/
     - js/
       - jquery-1.12.x.min.js
@@ -106,16 +87,12 @@ ___
     - images/
   - views/
   - private/
-    - private_data.js
-    - jasmine.spec.js
+    - private-data.js
   - app.js
   - Procfile =
     - "web: node app.js"
   - .gitignore
-  - package.json =
-    - name: "cash-check"
-    - description: "Track The Cash You Earn and Spend"
-    - keywords: ["cash", "money", "revenue", "management", "tracking"]
+  - test-trigger.spec.js (handles the initiation of all jasmine tests)
 
 ### Data structures
 #### User account info. Collection: users
