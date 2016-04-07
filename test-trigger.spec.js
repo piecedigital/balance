@@ -1,13 +1,15 @@
-describe("Testing my entire goddamn app to make sure it works,", function() {
-  it("starting with '/custom_modules/callback-router.js'", function() {
-    var Func_callbackRouter = require("./custom_modules/callback-router");
+describe("Testing module:", function() {
+  var Int_asyncsDone = 0;
+  var Func_callbackRouter = require("./custom_modules/callback-router");
+
+  // testing the "callback-router" module
+  it("'/custom_modules/callback-router.js'", function() {
     var Int_testNumber = 0,
-      String_testString;
+    String_testString;
 
     var arr = [
       {
         func: function(String_foo, next) {
-          console.log(arguments);
           Int_testNumber++;
           String_testString = String_foo;
           next("foo");
@@ -16,7 +18,6 @@ describe("Testing my entire goddamn app to make sure it works,", function() {
       },
       {
         func: function(_, next) {
-          console.log(arguments);
           Int_testNumber++;
           next("bar");
         },
@@ -24,7 +25,6 @@ describe("Testing my entire goddamn app to make sure it works,", function() {
       },
       {
         func: function(_, next) {
-          console.log(arguments);
           Int_testNumber++;
           next();
         }
@@ -36,5 +36,44 @@ describe("Testing my entire goddamn app to make sure it works,", function() {
     expect(Int_testNumber).toBe(3);
     expect(typeof String_testString).toBe("string");
     expect(String_testString).toBe("foo");
+  });
+
+  // testing "mongo-queries" module
+  it("'/custom_modules/mongo-queries.js'", function() {
+    var Func_dbQueries = require("./custom_modules/mongo-queries"), Array_queryData, Object_queryData;
+    var Array_cbArr = [
+      {
+        func: function(next) {
+          Func_dbQueries("users", "find", {}, {}, function(Array_returnedData, quit) {
+            Array_queryData = Array_returnedData;
+            Int_asyncsDone++;
+            next();
+          });
+        }
+      },
+      {
+        func: function() {
+          Func_dbQueries("users", "", {}, {}, function(Object_returnedData, quit) {
+            Object_queryData = Object_returnedData;
+            Int_asyncsDone++;
+            quit();
+          });
+        }
+      }
+    ];
+    var Func_asyncs = Func_callbackRouter(Array_cbArr);
+    Func_asyncs();
+
+     waitsFor(function() {
+       return Int_asyncsDone === 2;
+     }, "Async should be done", 5000);
+
+     runs(function() {
+       expect(typeof Func_dbQueries).toBe("function");
+       expect(typeof Array_queryData).toBe("object");
+       expect(typeof Object_queryData).toBe("object");
+       expect(Array.isArray(Array_queryData)).toBe(true);
+       expect(Array.isArray(Object_queryData)).toBe(false);
+     });
   });
 });

@@ -26,5 +26,11 @@
   "bugs": {
     "url": "https://github.com/piecedigital/cashulator/issues"
   },
-  "homepage": "https://github.com/piecedigital/cashulator#readme"
+  "homepage": "https://github.com/piecedigital/cashulator#readme",
+  "dependencies": {
+    "mongodb": "^2.1.15"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  }
 }

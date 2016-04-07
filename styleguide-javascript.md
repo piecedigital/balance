@@ -86,6 +86,7 @@ You can further express an immediate but small description of the issue by appen
 - [refactor]
 - [fragile]
 - [broken]
+- [avoid]
 
 ```js
 // !!![broken] - User input is not being sanitized
