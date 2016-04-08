@@ -5,20 +5,35 @@ ___
 I'll keep this fairly brief and get to the point of everything, so most of this documentation will be examples.
 
 ### Variable Names and Declaration
-**ALL** variables **MUST** have their value set using Shoehornjs. The documentation for it can be found [here](http://npmjs.com/package/shoehornjs).
+All variable names should be camel-cased.
 
-All variables names need to have their type indicated. The type should precede the actual variable name, separated by an underscore. The first letter of the type should be uppercased, and the variable name should be camel-cased.
-
-``` js
-var shoehorn = require("shoehornjs");
-
-var String_fooBar = shoehorn().String("foobar");
-```
-
-For variables that are (to be treated as) immutable you must inster "Immut_" right after the time. Remember that underscores must separate the type, immutability, and variable name.
+For variables that are (to be treated as) immutable you must insert "Immut_" at the beginning.
 ```js
-const String_Immut_fooBar = shoehorn().String("foobar");
+var shoehorn = require("shoehornjs");
+const Immut_fooBar = "foobar";
 ```
+
+Argument variables **must** have their value checked using Shoehornjs. The documentation for it can be found [here](http://npmjs.com/package/shoehornjs).
+```js
+myFunctionTakesACallback(function(returnedData) {
+  returnedData = shoehorn().String(returnedData);
+});
+```
+```js
+myFunctionTakesACallback(givenData, callback) {
+  callback( shoehorn().String(givenData) );
+};
+```
+
+Because Shoehorn will return the desired data type even if the expected type is wrong, this reassignment check isn't necessary
+```js
+myStuff.reduce(function(number1, number2) {
+  return shoehorn().Int(number1) + shoehorn().Int(number2);
+});
+```
+
+If the arguments provided aren't expected they'll be caught.
+
 **Note:** For server code `const` should be used when assigning data to immutable variables.
 
 Q: Why use [Shoehornjs](http://npmjs.com/package/shoehornjs) and this  manner of variable creation instead of something like TypeScript?
@@ -33,9 +48,9 @@ A: No. I'd appreciate it if you respect this style guide.
 Fairly simply, the opening brace for a function should be on the same line as the function. I don't know where that came from but that's not how I'm doing things 'round there here parts.
 
 ``` js
-var Func_foo = shoehorn().Func(function() {
+var foo = function() {
   // code goes here... of course
-});
+};
 ```
 
 A: But... I like the block beginning on the next line :(.
@@ -45,27 +60,25 @@ Q: I'm certain.
 ### Objects
 The style of writing an object is the same as writing a function: begin the block on the same line.
 
-Object property names should still follow the rules of creating variables.
-
 ``` js
-var Object_myObject = shoehorn().Object({
-  String_foo: shoehorn().String("foo")
-});
+var Object_myObject = {
+  foo: "foo"
+};
 ```
 
 ### Arrays
 Arrays are usually fine as one liners. However if the array was to contain an object or (for whatever damned reason) a function, those cells need to move to the next line.
 
 ``` js
-var Array_myArray = shoehorn().Array(["foo", "bar", "baxz"]);
+var myArray = ["foo", "bar", "baxz"];
 ```
 ``` js
-var Array_myObjectifiedArray = shoehorn().Array([{
+var myObjectifiedArray = [{
   ...
 },
 {
   ...
-}]);
+}];
 ```
 
 ### Comments

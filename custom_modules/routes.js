@@ -21,7 +21,6 @@ app
     next();
   })
   .get("/terms-and-conditions", function(req, res, next) {
-
   })
   .get("*", function(req, res, next) {
     res.status(404).send("404: Not Found");

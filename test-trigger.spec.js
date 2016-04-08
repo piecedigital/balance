@@ -1,79 +1,108 @@
+var sh = require("shoehornjs");
+require("./private/private-data")();
+
 describe("Testing module:", function() {
-  var Int_asyncsDone = 0;
-  var Func_callbackRouter = require("./custom_modules/callback-router");
+  var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
   // testing the "callback-router" module
   it("'/custom_modules/callback-router.js'", function() {
-    var Int_testNumber = 0,
-    String_testString;
+    var testNumber = 0,
+    testString;
 
     var arr = [
       {
-        func: function(String_foo, next) {
-          Int_testNumber++;
-          String_testString = String_foo;
+        func: function(foo, next) {
+          testNumber++;
+          testString = sh().String(foo);
           next("foo");
         },
-        Array_args: ["foo"]
+        args: ["foo"]
       },
       {
         func: function(_, next) {
-          Int_testNumber++;
+          testNumber++;
           next("bar");
         },
-        Array_args: ["bar"]
+        args: ["bar"]
       },
       {
         func: function(_, next) {
-          Int_testNumber++;
+          testNumber++;
           next();
         }
       }
     ];
 
-    var Func_next = Func_callbackRouter(arr);
-    Func_next();
-    expect(Int_testNumber).toBe(3);
-    expect(typeof String_testString).toBe("string");
-    expect(String_testString).toBe("foo");
+    var next = callbackRouter(arr);
+    next();
+    expect(testNumber).toBe(3);
+    expect(sh().trueType(testString)).toBe("String");
+    expect(testString).toBe("foo");
   });
 
   // testing "mongo-queries" module
   it("'/custom_modules/mongo-queries.js'", function() {
-    var Func_dbQueries = require("./custom_modules/mongo-queries"), Array_queryData, Object_queryData;
-    var Array_cbArr = [
+    var asyncsDone = 0;
+    var dbQueries = sh().Func(require("./custom_modules/mongo-queries")), queryArrayDataGood, queryObjectDataGood, queryArrayDataBad, queryObjectDataBad;
+
+    var cbArr = [
       {
         func: function(next) {
-          Func_dbQueries("users", "find", {}, {}, function(Array_returnedData, quit) {
-            Array_queryData = Array_returnedData;
-            Int_asyncsDone++;
+          dbQueries("test_users_success", "find", {}, {}, function(err, returnedData, quit) {
+            queryArrayDataGood = sh().Array(returnedData);
+            asyncsDone++;
+            next();
+          });
+        }
+      },
+      {
+        func: function(next) {
+          dbQueries("test_users_success", "", {}, {}, function(err, returnedData, quit) {
+            queryObjectDataGood = sh().Object(returnedData);
+            asyncsDone++;
+            next();
+          });
+        }
+      },
+      {
+        func: function(next) {
+          dbQueries("test_users_fail", "find", {}, {}, function(err, returnedData, quit) {
+            queryArrayDataBad = sh().Array(returnedData);
+            asyncsDone++;
             next();
           });
         }
       },
       {
         func: function() {
-          Func_dbQueries("users", "", {}, {}, function(Object_returnedData, quit) {
-            Object_queryData = Object_returnedData;
-            Int_asyncsDone++;
+          dbQueries("test_users_fail", "", {}, {}, function(err, returnedData, quit) {
+            queryObjectDataBad = sh().Object(returnedData);
+            asyncsDone++;
             quit();
           });
         }
       }
     ];
-    var Func_asyncs = Func_callbackRouter(Array_cbArr);
-    Func_asyncs();
+    var asyncs = sh().Func( callbackRouter(cbArr) );
+    asyncs();
 
      waitsFor(function() {
-       return Int_asyncsDone === 2;
+       return asyncsDone === 4;
      }, "Async should be done", 5000);
 
      runs(function() {
-       expect(typeof Func_dbQueries).toBe("function");
-       expect(typeof Array_queryData).toBe("object");
-       expect(typeof Object_queryData).toBe("object");
-       expect(Array.isArray(Array_queryData)).toBe(true);
-       expect(Array.isArray(Object_queryData)).toBe(false);
+       expect(sh().trueType(dbQueries)).toBe("Function");
+       // testing data returned from a populated collection in the database
+       // ![broken] - the database needs to actually be populated
+       expect(sh().trueType(queryArrayDataGood)).toBe("Array");
+       expect(queryArrayDataGood.length).toBe(0);
+       expect(sh().trueType(queryObjectDataGood)).toBe("Object");
+       expect(Object.keys(queryObjectDataGood).length).toBe(0);
+       // testing returned data from an unpopulated collection in the database
+       expect(sh().trueType(queryArrayDataBad)).toBe("Array");
+       expect(queryArrayDataBad.length).toBe(0);
+       expect(sh().trueType(queryObjectDataBad)).toBe("Object");
+       expect(Object.keys(queryObjectDataBad).length).toBe(0);
      });
   });
 });

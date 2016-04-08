@@ -1,32 +1,38 @@
-var Object_MongoClient  = require("mongodb"),
-  Func_ObjectId = Object_MongoClient.ObjectID;
+var MongoClient  = require("mongodb"),
+  ObjectId = MongoClient.ObjectID,
+  sh = require("shoehornjs");
 
-var Object_db;
+var db;
 
 // [avoid] - this is here ONLY for unit testing.
 var quit = function() {
-  Object_db.close();
+  db.close();
 };
 
-module.exports = function(String_collectionName, String_operation, Object_queryObject, Object_updateObject, Func_userCallback) {
-  // wait for Object_db to be set
+module.exports = function(collectionName, operation, queryObject, updateObject, userCallback) {
+  collectionName = sh().String(collectionName),
+  operation = sh().String(operation),
+  queryObject = sh().Object(queryObject),
+  updateObject = sh().Object(updateObject),
+  userCallback = sh().Func(userCallback);
+  // wait for db to be set
   setTimeout(function() {
-    Object_operations = {
+    operations = {
       find: function() {
-        Object_db.collection(String_collectionName)[String_operation](Object_queryObject, Object_updateObject).toArray(function(err, Array_queryData) {
+        db.collection(collectionName)[operation](queryObject, updateObject).toArray(function(err, queryData) {
           if(err) console.error(err);
 
-          if(typeof Func_userCallback === "function") {
-            Func_userCallback(Array_queryData || [], quit);
+          if(typeof userCallback === "function") {
+            userCallback(err, queryData, quit);
           }
         });
       },
       default: function() {
-        Object_db.collection(String_collectionName)[String_operation || "findOne"](Object_queryObject, Object_updateObject, function(err, Object_queryData) {
+        db.collection(collectionName)[operation || "findOne"](queryObject, updateObject, function(err, queryData) {
           if(err) console.error(err);
 
-          if(typeof Func_userCallback === "function") {
-            Func_userCallback(Object_queryData || {}, quit);
+          if(typeof userCallback === "function") {
+            userCallback(err, queryData, quit);
           }
         });
       }
@@ -34,19 +40,18 @@ module.exports = function(String_collectionName, String_operation, Object_queryO
     // console.log("run")
 
     // call the function in the operations object, or the default function for undefined operations
-    if(Object_operations.hasOwnProperty(String_operation)) {
-      Object_operations[String_operation]();
+    if(operations.hasOwnProperty(operation)) {
+      operations[operation]();
     } else {
-      Object_operations.default();
+      operations.default();
     };
   }, 100);
 };
 
-require("../private/private-data")();
-Object_MongoClient.connect(process.env["MLAB_URL"]
+MongoClient.connect(process.env["MLAB_URL"]
 , function(err, data) {
   if(err) throw err;
 
-  Object_db = data;
+  db = data;
   console.log("'mongo-queries' set.\n");
 });
