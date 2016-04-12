@@ -70,10 +70,10 @@ ___
 - /
   - [node_modules/](https://github.com/piecedigital/cash-check/blob/master/todo.md#production-tools)
   - custom_modules/
-    - routes.js (route all handling)
-    - accounts.js (handles all user account operations)
-    - mongo-queries.js (handles all DB query operations)
-    - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell)
+    - routes.js (route all handling) [exists]
+    - accounts.js (handles all user account creation and validation operations)
+    - mongo-queries.js (handles all DB query operations) [exists]
+    - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell) [exists]
   - public/
     - js/
       - jquery-1.12.x.min.js
@@ -98,23 +98,22 @@ ___
 #### User account info. Collection: users
 ``` js
 {
-  "String_firstName": String,
-  "String_lastName": String,
-  "String_email": String, // regex: /([a-z0-9]){1,}([.][a-z0-9]{1,})?([@][a-z0-9]{2,}[.][a-z]{1,3})([.][a-z]{1,2})?/i
-  "String_password": String,
-  "String_Immut_username": String, // regex: /^[a-z0-9_-]{3,}$/gi
+  "firstName": String,
+  "lastName": String,
+  "email": String, // regex: /([a-z0-9]){1,}([.][a-z0-9]{1,})?([@][a-z0-9]{2,}[.][a-z]{1,3})([.][a-z]{1,2})?/i
+  "password": String,
+  "username": String, // regex: /^[a-z0-9_-]{3,}$/gi
   // ...  // used for login and to connect the user document in the "users" collection
-  "String_accountType": String, // ["basic", "premium"]
-  "Object_ban": {
-    "Bool_status": Boolean,
-    "Int_banDate": Number, // new Date().getTime() === gets milliseconds
-    "String_reason": String // explains the reason for the user's ban
+  "accountType": String, // ["basic", "premium"]
+  "ban": {
+    "status": Boolean,
+    "banDate": Number, // new Date().getTime() === gets milliseconds
+    "reason": String // explains the reason for the user's ban
   },
-  "Object_suspension":  {
-    "Int_times": Number, // Equal to length of "reasons"
-    "Array_reasons": [
-      "Int_startDate": Number, // new Date().getTime() === gets milliseconds
-      "Int_endDate":
+  "suspension":  {
+    "reasons": [
+      "startDate": Number, // new Date().getTime() === gets milliseconds
+      "endDate":
     ]
   }
 }
@@ -123,85 +122,85 @@ ___
 #### User money management data. Collection: moneyManagement
 ``` js
 {
-  "String_username": String, // used to connect the user document in the "users" collection
-  "Array_sourceNames": [ // central source for the source names of revenue/expenses
+  "username": String, // used to connect the user document in the "users" collection
+  "sourceNames": [ // central source for the source names of revenue/expenses
     {
       "sourceName": String,
       "sourceNameFlattened": String // source name is lower-cased and spaces are hyphenated
     },
     ...
   ],
-  "Object_moneyManagement": {
-    "Int_year": Number,
-    "Array_sourcesOfRevenue": [
+  "moneyManagement": {
+    "year": Number,
+    "sourcesOfRevenue": [
       {
-        "String_sourceName": String,
-        "Int_revenuePerMonth": Number,
-        "Int_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
-        "Array_revenueExceptions": [
+        "sourceName": String,
+        "revenuePerMonth": Number,
+        "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+        "revenueExceptions": [
           Number,
           ...
         ]
       },
       ...
     ],
-    "Array_sourcesOfExpenses": [
+    "sourcesOfExpenses": [
       {
-        "String_sourceName": String,
-        "Int_expensePerMonth": Number,
-        "Array_expenseExceptions": [
+        "sourceName": String,
+        "expensePerMonth": Number,
+        "expenseExceptions": [
           Number,
           ...
         ]
       },
       ...
     ],
-    "Array_months": [
+    "months": [
       {
-        "String_month": String, // January
-        "Array_sourcesOfRevenue": [
+        "month": String, // January
+        "sourcesOfRevenue": [
           {
-            "String_sourceName": String,
-            "Int_revenuePerDay": Number,
-            "Int_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
-            "Array_revenueExceptions": [
+            "sourceName": String,
+            "revenuePerDay": Number,
+            "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+            "revenueExceptions": [
               Number,
               ...
             ]
           },
           ...
         ],
-        "Array_sourcesOfExpenses": [
+        "sourcesOfExpenses": [
           {
-            "String_sourceName": String,
-            "Int_expensePerDay": Number,
-            "Array_expenseExceptions": [
+            "sourceName": String,
+            "expensePerDay": Number,
+            "expenseExceptions": [
               Number,
               ...
             ]
           },
           ...
         ],
-        "Array_days": [ // equal to number of days of the month
+        "days": [ // equal to number of days of the month
           {
-            "String_day": String // day of the month
-            "Array_sourcesOfRevenue": [
+            "day": String // day of the month
+            "sourcesOfRevenue": [
               {
-                "String_sourceName": String,
-                "Float_revenuePerHour": Number,
-                "Float_taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
-                "Array_revenueExceptions": [
+                "sourceName": String,
+                "revenuePerHour": Number,
+                "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+                "revenueExceptions": [
                   Number,
                   ...
                 ]
               },
               ...
             ]
-            "Array_sourcesOfExpenses": [
+            "sourcesOfExpenses": [
               {
-                "String_sourceName": String,
-                "Float_expensePerHour": Number,
-                "Array_expenseExceptions": [
+                "sourceName": String,
+                "expensePerHour": Number,
+                "expenseExceptions": [
                   Number,
                   ...
                 ]

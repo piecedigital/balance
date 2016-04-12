@@ -105,4 +105,106 @@ describe("Testing module:", function() {
        expect(Object.keys(queryObjectDataBad).length).toBe(0);
      });
   });
+
+  // testing "accounts" module
+  it("'/custom_modules/accounts.js'", function() {
+    var accounts = require("./custom_modules/accounts");
+    var callbackDone = false,
+    attempts = [];
+
+    var arr = [
+      {
+        func(next) {
+          accounts({
+            username: "foobar",
+            firstname: "foo",
+            lastname: "bar",
+            email: "foobar@foo.bar",
+            password: "foobar"
+          }).createUser(function(err, object) {
+            if(err) {
+              attempts.push(false);
+            } else {
+              attempts.push(true);
+            }
+            next();
+          });
+        }
+      },
+      {
+        func(next) {
+          accounts({
+            username: "foobar",
+            firstname: "foo",
+            lastname: "bar",
+            email: "foobarfoo.bar",
+            password: "foobar"
+          }).createUser(function(err, object) {
+            if(err) {
+              attempts.push(false);
+            } else {
+              attempts.push(true);
+            }
+            next();
+          });
+        }
+      },
+      {
+        func(next) {
+          accounts({}).createUser(function(err, object) {
+            if(err) {
+              attempts.push(false);
+            } else {
+              attempts.push(true);
+            }
+            next();
+          });
+        }
+      },
+      {
+        func(next) {
+          var isValid = accounts({
+            username: "foobar",
+            firstname: "foo",
+            lastname: "bar",
+            email: "foobar@foo.bar",
+            password: "foobar"
+          }).validateUser();
+          if(isValid === true) {
+            attempts.push(true);
+          } else {
+            attempts.push(false);
+          }
+          next();
+        }
+      },
+      {
+        func(next) {
+          var isValid = accounts().validateUser();
+          if(isValid === true) {
+            attempts.push(true);
+          } else {
+            attempts.push(false);
+          }
+          callbackDone = true;
+          next();
+        }
+      }
+    ];
+
+    var next = callbackRouter(arr)();
+
+    waitsFor(function() {
+      return callbackDone;
+    }, "callback should be done", 5000);
+
+    runs(function() {
+      expect(attempts.length).toBe(5);
+      expect(attempts[0]).toBe(true);
+      expect(attempts[1]).toBe(false);
+      expect(attempts[2]).toBe(false);
+      expect(attempts[3]).toBe(true);
+      expect(attempts[4]).toBe(false);
+    });
+  });
 });

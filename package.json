@@ -28,8 +28,9 @@
   },
   "homepage": "https://github.com/piecedigital/cashulator#readme",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "mongodb": "^2.1.15",
-    "shoehornjs": "^2.0.0"
+    "shoehornjs": "^2.0.1"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5"
