@@ -9,6 +9,14 @@ var quit = function() {
   db.close();
 };
 
+MongoClient.connect(process.env["MLAB_URL"]
+, function(err, data) {
+  if(err) throw err;
+
+  db = data;
+  console.log("'mongo-queries' set.\n");
+});
+
 module.exports = function(collectionName, operation, queryObject, updateObject, userCallback) {
   collectionName = sh().String(collectionName),
   operation = sh().String(operation),
@@ -47,11 +55,4 @@ module.exports = function(collectionName, operation, queryObject, updateObject, 
     };
   }, 100);
 };
-
-MongoClient.connect(process.env["MLAB_URL"]
-, function(err, data) {
-  if(err) throw err;
-
-  db = data;
-  console.log("'mongo-queries' set.\n");
-});
+console.log("mongo-queries.js mounted\n");

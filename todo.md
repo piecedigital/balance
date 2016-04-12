@@ -38,17 +38,17 @@ ___
 - Server
   - Node
   - **Packages (by package name)**:
-    - express
-    - path (comes with node)
-    - body-parser
-    - cookie-parser
-    - bcryptjs
-    - csurf
-    - helmetjs
-    - mongodb
-    - ejs
+    - bcryptjs **[obtained]**
+    - body-parser **[obtained]**
+    - cookie-parser **[obtained]**
+    - csurf **[obtained]**
+    - ejs **[obtained]**
+    - express **[obtained]**
     - fs (?)
-    - [shoehornjs](http://npmjs.com/package/shoehornjs)
+    - helmet **[obtained]**
+    - mongodb **[obtained]**
+    - path (comes with node) **[obtained]**
+    - [shoehornjs](http://npmjs.com/package/shoehornjs) **[obtained]**
 - Client
   - React
   - Sass
@@ -57,28 +57,30 @@ ___
 ### Development Tools
 - gulp
   - node-sass
-  - jasmine
   - browser-sync
-    - nodemon
+  - nodemon
+- jasmine-node
+- morgan **[obtained]**
 
 ### Style guide
-- [JavaScript Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-javascript.md)
 - [CSS Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-css.md)
 - [Error Codes Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-error-codes.md) (may not keep this)
+- [JavaScript Style Guide](https://github.com/piecedigital/cash-check/blob/master/styleguide-javascript.md)
 
 ### File Structure and Custom modules
 - /
   - [node_modules/](https://github.com/piecedigital/cash-check/blob/master/todo.md#production-tools)
   - custom_modules/
-    - routes.js (route all handling) [exists]
-    - accounts.js (handles all user account creation and validation operations)
-    - mongo-queries.js (handles all DB query operations) [exists]
-    - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell) [exists]
+    - [accounts.js](https://github.com/piecedigital/cash-check/blob/master/accounts.md) (handles all user account creation and validation operations) **[exists]**
+    - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell) **[exists]**
+    - csrf-routes.js (handles routes that require CSRF validation)
+    - [mongo-queries.js](https://github.com/piecedigital/cash-check/blob/master/mongo-queries.md) (handles all DB query operations) **[exists]**
+    - routes.js (route all handling) **[exists]**
   - public/
     - js/
+      - calculator.js (handles all calculations through various functions)
       - jquery-1.12.x.min.js
       - react-app.js (the entire app view)
-      - calculator.js (handles all calculations through various functions)
     - css/
       - home-page.scss
         - home-page.css
@@ -92,7 +94,7 @@ ___
   - Procfile =
     - "web: node app.js"
   - .gitignore
-  - test-trigger.spec.js (handles the initiation of all jasmine tests)
+  - jasmine.spec.js (handles the initiation of all jasmine tests)
 
 ### Data structures
 #### User account info. Collection: users

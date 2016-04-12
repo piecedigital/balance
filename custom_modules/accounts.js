@@ -55,3 +55,4 @@ module.exports = function(body) {
     }
   };
 };
+console.log("accounts.js mounted\n");

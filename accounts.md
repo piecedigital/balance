@@ -40,7 +40,7 @@ accounts(req.body).createUser(function(err, object) {
 ```
 ... and `object` will be null.
 
-The `createuser` method uses the `validateUser` method, which is openly accessible to being called.
+The `createUser` method uses the `validateUser` method, which is openly accessible to being called.
 
 ```js
 accounts(req.body).validateUser();

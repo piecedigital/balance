@@ -18,3 +18,4 @@ module.exports = function(callbacks) {
   }
   return next;
 };
+console.log("callback-router.js mounted\n");
