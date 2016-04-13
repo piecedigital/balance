@@ -95,13 +95,15 @@ describe("Testing module:", function() {
        // testing data returned from a populated collection in the database
        // ![broken] - the database needs to actually be populated
        expect(sh().trueType(queryArrayDataGood)).toBe("Array");
-       expect(queryArrayDataGood.length).toBe(0);
+       expect(queryArrayDataGood.length).toBe(2);
        expect(sh().trueType(queryObjectDataGood)).toBe("Object");
-       expect(Object.keys(queryObjectDataGood).length).toBe(0);
+       // ... testing the number of keys of an object
+       expect(Object.keys(queryObjectDataGood).length).toBe(10);
        // testing returned data from an unpopulated collection in the database
        expect(sh().trueType(queryArrayDataBad)).toBe("Array");
        expect(queryArrayDataBad.length).toBe(0);
        expect(sh().trueType(queryObjectDataBad)).toBe("Object");
+       // ... testing the number of keys of an object
        expect(Object.keys(queryObjectDataBad).length).toBe(0);
      });
   });

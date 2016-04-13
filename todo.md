@@ -7,11 +7,11 @@ ___
   - ... features
   - ... nav UX
   - ... UI/prototype layout
-  - ... tools needed
-  - ... style guide
-  - ... error codes
+  - ... tools needed **[obtained]**
+  - ... style guide **[obtained]**
+  - ... error codes **[obtained]** ! - continued existence up for debate
   - ... file structure and custom modules
-  - ... data structures
+  - ... data structures **[obtained]**
 
 ___
 
@@ -122,9 +122,11 @@ ___
 ```
 
 #### User money management data. Collection: moneyManagement
+
+// !! - reevaluate this data structure
 ``` js
 {
-  "username": String, // used to connect the user document in the "users" collection
+  "userAccountId": String, // used to connect the user document in the "users" collection
   "sourceNames": [ // central source for the source names of revenue/expenses
     {
       "sourceName": String,
