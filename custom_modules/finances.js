@@ -1,9 +1,15 @@
 var sh = require("shoehornjs");
+require("./method-fill")();
 
 module.exports = function(userAccountId) {
-  userAccountId = sh().String( userAccountId.toString() );
+  userAccountId = sh().String( userAccountId ? userAccountId.toString() : "" );
+  // all of the available blocks
+  var allBlocks = ["year", "month", "day"];
+
+  // return early if there is no string data in 'userAccountId'
+  if(!userAccountId) return null;
   return {
-    createFinancesRecord() {
+    createFinancesObject() {
       return {
         userAccountId,
         "moneyManagement": {
@@ -15,14 +21,10 @@ module.exports = function(userAccountId) {
     },
     addNewBlock(blockName) {
       blockName = sh().String(blockName).toLowerCase();
-      // cancel the rest of the script if 'blockName' === "day"
-      // there are no lower blocks
-      if(blockName === "day") return null;
-      var allBlocks = ["year", "month", "day"],
       // cancel the rest of this script if the return value from 'index' is < 0
-      var index = allBlocks.indexOf(blockName);
-      if(index < 0) {
-        console.error(new Error("Invalid block name:", blockName))
+
+      if(!allBlocks.includes(blockName)) {
+        console.error(new Error(`Invalid block name: ${blockName}`))
         return null;
       };
       return {
@@ -37,35 +39,42 @@ module.exports = function(userAccountId) {
         "sourcesOfExpenses": [],
         "expenseExceptions": [],
         "sourceNames": [],
+        // this will either create the next block or make a blank
         [blockName !== "day" ? blockName : ""]: blockName !== "day" ? [] : undefined
       }
     },
-    addRecord(name) {
-      name = sh().String(name).toLowerCase;
+    addRecord(blockName) {
+      blockName = sh().String(blockName).toLowerCase();
+      if(!blockName || !allBlocks.includes(blockName)) {
+        console.error(new Error(`Invalid block blockName: ${blockName}`));
+        return null;
+      };
       return {
         sourceOfRevenue() {
           return {
             "sourceName": String,
-            // uppercase the first letter of 'name
-            [`revenuePer${name.replace(/^./, name[0].toUpperCase() )}`]: Number,
+            // uppercase the first letter of 'blockName'
+            [`revenuePer${blockName.replace(/^./, blockName[0].toUpperCase() )}`]: Number,
             "taxPercentage": Number,
           }
         },
         sourceOfExpense() {
           return {
             "sourceName": String,
-            // uppercase the first letter of 'name
-            [`expensePer${name.replace(/^./, name[0].toUpperCase() )}`]: Number,
+            // uppercase the first letter of 'blockName'
+            [`expensePer${blockName.replace(/^./, blockName[0].toUpperCase() )}`]: Number,
           }
         },
         exception(date) {
+          date = sh().Int(date);
+          if(!date) return null;
           return sh().Int(date)
         },
         sourceName() {
           return {
-            "sourceName": name,
-            // lowecase 'name' and replace spaces with an underscore
-            "sourceNameFlat": name.toLowerCase().replace(/[\s]{1,}/g, "_")
+            "sourceName": blockName,
+            // lowecase 'blockName' and replace spaces with an underscore
+            "sourceNameFlat": blockName.toLowerCase().replace(/[\s]{1,}/g, "_")
           };
         }
       };

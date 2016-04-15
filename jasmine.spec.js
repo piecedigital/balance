@@ -6,7 +6,7 @@ describe("Testing module:", function() {
 
   // testing the "method-fill" module
   it("'/custom_modules/method-fill.js'", function() {
-    require("./custom_modules/method-fill.js")();
+    require("./custom_modules/method-fill")();
     var arr = [1,2,3];
     expect(arr.includes(1)).toBe(true);
     expect(arr.includes(4)).toBe(false);
@@ -216,5 +216,57 @@ describe("Testing module:", function() {
       expect(attempts[3]).toBe(true);
       expect(attempts[4]).toBe(false);
     });
+  });
+
+  // testing "finances" module
+  it("'/custom_modules/finances.js'", function() {
+    var finances = require("./custom_modules/finances");
+    expect(sh().trueType(finances)).toBe("Function");
+    expect(sh().trueType(finances("foo"))).toBe("Object");
+    expect(sh().trueType(finances())).toBe("Null");
+
+    var financesObject = finances("foo");
+
+    var goodFinancesObject = financesObject.createFinancesObject();
+    expect(sh().trueType(goodFinancesObject)).toBe("Object");
+    expect(Object.keys(goodFinancesObject).length).toBe(2);
+
+    // testing blocks
+    var goodBlock = financesObject.addNewBlock("year");
+    expect(sh().trueType(goodBlock)).toBe("Object");
+    expect(Object.keys(goodBlock).length).toBe(9);
+
+    var dayBlock = financesObject.addNewBlock("day");
+    delete dayBlock[""];
+    expect(sh().trueType(dayBlock)).toBe("Object");
+    expect(Object.keys(dayBlock).length).toBe(8);
+
+    var badBlock = financesObject.addNewBlock();
+    expect(sh().trueType(badBlock)).toBe("Null");
+
+    // testing records
+    var newRecord = financesObject.addRecord;
+    expect(sh().trueType(newRecord)).toBe("Function");
+
+    var goodRecord = newRecord("day");
+    expect(sh().trueType(goodRecord)).toBe("Object");
+    expect(Object.keys(goodRecord).length).toBe(4);
+
+    expect(sh().trueType(goodRecord.sourceOfRevenue)).toBe("Function");
+    expect(sh().trueType(goodRecord.sourceOfRevenue())).toBe("Object");
+
+    expect(sh().trueType(goodRecord.sourceOfExpense)).toBe("Function");
+    expect(sh().trueType(goodRecord.sourceOfExpense())).toBe("Object");
+
+    expect(sh().trueType(goodRecord.exception)).toBe("Function");
+    expect(sh().trueType(goodRecord.exception(1))).toBe("Int");
+    expect(sh().trueType(goodRecord.exception(0))).toBe("Null");
+    expect(sh().trueType(goodRecord.exception())).toBe("Null");
+
+    expect(sh().trueType(goodRecord.sourceName)).toBe("Function");
+    expect(sh().trueType(goodRecord.sourceName())).toBe("Object");
+
+    expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
+    expect(sh().trueType( financesObject.addRecord("bad") )).toBe("Null");
   });
 });
