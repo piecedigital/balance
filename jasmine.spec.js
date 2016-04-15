@@ -4,6 +4,14 @@ require("./private/private-data")();
 describe("Testing module:", function() {
   var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
+  // testing the "method-fill" module
+  it("'/custom_modules/method-fill.js'", function() {
+    require("./custom_modules/method-fill.js")();
+    var arr = [1,2,3];
+    expect(arr.includes(1)).toBe(true);
+    expect(arr.includes(4)).toBe(false);
+  });
+
   // testing the "callback-router" module
   it("'/custom_modules/callback-router.js'", function() {
     var testNumber = 0,
