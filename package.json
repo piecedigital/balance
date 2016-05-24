@@ -4,7 +4,8 @@
   "description": "Calculate your revenue and expenses with ease",
   "main": "app.js",
   "scripts": {
-    "test": "jasmine-node jasmine.spec.js"
+    "test": "jasmine-node jasmine.spec.js",
+    "install-test": "npm install -g jasmine-node"
   },
   "repository": {
     "type": "git",
