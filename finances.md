@@ -7,7 +7,7 @@ This module handles the creating of finances records. It has one initial functio
 - `addNewBlock`
 - `addRecord`
 
-### createFinancesObject
+## createFinancesObject
 
 This function takes a string as an argument. The string should be the MongoDB ID for the field of the user account in the `users` collection. Once called it'll return an object to create a new root finances object for the user's account in the database.
 
@@ -20,7 +20,7 @@ This function takes a string as an argument. The string should be the MongoDB ID
 }
 ```
 
-### addNewBlock
+## addNewBlock
 
 This function accepts a string as its first and only argument. This string will be equal to `year`, `month`, or `day`, the only blocks allowed. Once called it will return an object for the new block of records:
 
@@ -41,7 +41,7 @@ This function accepts a string as its first and only argument. This string will 
 }
 ```
 
-### addRecord
+## addRecord
 
 This function accepts a string as its first and only argument. This string will be equal to `year`, `month`, or `day`, the only blocks allowed. Once called it will return an object with more functions:
 - sourceOfRevenue
@@ -49,7 +49,7 @@ This function accepts a string as its first and only argument. This string will 
 - exception
 - sourceName
 
-#### sourceOfRevenue
+### sourceOfRevenue
 
 Returns an object representing the revenue for the new record block:
 
@@ -61,7 +61,7 @@ Returns an object representing the revenue for the new record block:
 }
 ```
 
-#### sourceOfExpense
+### sourceOfExpense
 
 Returns an object representing the expenses for the new record block:
 
@@ -72,11 +72,11 @@ Returns an object representing the expenses for the new record block:
 }
 ```
 
-#### exception
+### exception
 
 Accepts a date in milliseconds and returns it. (why? For clarity sake, I think)
 
-#### sourceName
+### sourceName
 
 To supplement the `sourceName` property of the `sourceOfRevenue` and `sourceOfExpense` blocks:
 
