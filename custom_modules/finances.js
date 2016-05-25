@@ -1,21 +1,19 @@
 var sh = require("shoehornjs");
 require("./method-fill")();
 
-module.exports = function(userAccountId) {
-  userAccountId = sh().String( userAccountId ? userAccountId.toString() : "" );
+module.exports = function() {
   // all of the available blocks
   var allBlocks = ["year", "month", "day"];
 
-  // return early if there is no string data in 'userAccountId'
-  if(!userAccountId) return null;
   return {
-    createFinancesObject() {
+    createFinancesObject(userAccountId) {
+      userAccountId = sh().String( userAccountId ? userAccountId.toString() : "" );
+      // return early if there is no string data in 'userAccountId'
+      if(!userAccountId) return null;
       return {
         userAccountId,
         "moneyManagement": {
-          "years": [
-
-          ]
+          "years": []
         }
       }
     },
@@ -24,7 +22,7 @@ module.exports = function(userAccountId) {
       // cancel the rest of this script if the return value from 'index' is < 0
 
       if(!allBlocks.includes(blockName)) {
-        console.error(new Error(`Invalid block name: ${blockName}`))
+        console.error(new Error(`Invalid block name: ${blockName}`).stack)
         return null;
       };
       return {
@@ -46,7 +44,7 @@ module.exports = function(userAccountId) {
     addRecord(blockName) {
       blockName = sh().String(blockName).toLowerCase();
       if(!blockName || !allBlocks.includes(blockName)) {
-        console.error(new Error(`Invalid block blockName: ${blockName}`));
+        console.error(new Error(`Invalid block blockName: ${blockName}`).stack);
         return null;
       };
       return {
@@ -68,13 +66,15 @@ module.exports = function(userAccountId) {
         exception(date) {
           date = sh().Int(date);
           if(!date) return null;
-          return sh().Int(date)
+          return date;
         },
-        sourceName() {
+        sourceName(sourceName) {
+          sourceName = sh().String(sourceName);
+          if(!sourceName) return null;
           return {
-            "sourceName": blockName,
-            // lowecase 'blockName' and replace spaces with an underscore
-            "sourceNameFlat": blockName.toLowerCase().replace(/[\s]{1,}/g, "_")
+            sourceName,
+            // lowecase 'sourceName' and replace spaces with an underscore
+            "sourceNameFlat": sourceName.toLowerCase().replace(/[\s]{1,}/g, "_")
           };
         }
       };

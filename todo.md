@@ -44,7 +44,6 @@ ___
     - csurf **[obtained]**
     - ejs **[obtained]**
     - express **[obtained]**
-    - fs (?)
     - helmet **[obtained]**
     - mongodb **[obtained]**
     - path (comes with node) **[obtained]**
@@ -56,10 +55,8 @@ ___
 
 ### Development Tools
 - gulp
-  - node-sass
-  - browser-sync
-  - nodemon
-- jasmine-node
+  - node-sass **[obtained]**
+- jasmine-node **[obtained]**
 - morgan **[obtained]**
 
 ### Style guide
@@ -73,7 +70,8 @@ ___
   - custom_modules/
     - [accounts.js](https://github.com/piecedigital/cash-check/blob/master/accounts.md) (handles all user account creation and validation operations) **[exists]**
     - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell) **[exists]**
-    - csrf-routes.js (handles routes that require CSRF validation)
+    - csrf-routes.js (handles routes that require CSRF validation) **[exists]**
+    - [finances.js](https://github.com/piecedigital/cash-check/blob/master/mongo-queries.md) (handles all DB query operations) **[exists]**
     - [mongo-queries.js](https://github.com/piecedigital/cash-check/blob/master/mongo-queries.md) (handles all DB query operations) **[exists]**
     - routes.js (route all handling) **[exists]**
   - public/

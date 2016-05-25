@@ -1,22 +1,22 @@
-var MongoClient  = require("mongodb"),
-  ObjectId = MongoClient.ObjectID;
-
-MongoClient.connect("mongodb://localhost:27017/guidechat"
-, function(err, db) {
-  if(err) throw err;
-
-  db.collection("users").findOne({}, function(err, data) {
-    if(err) throw err;
-
-    console.log(JSON.stringify(data._id));
-    db.collection("users").findOne({_id: new ObjectId(data._id.toString()) }, function(err, data) {
-      if(err) throw err;
-
-      console.log(data);
-      db.close();
-    });
-  });
-});
+// var MongoClient  = require("mongodb"),
+//   ObjectId = MongoClient.ObjectID;
+//
+// MongoClient.connect("mongodb://localhost:27017/guidechat"
+// , function(err, db) {
+//   if(err) throw err;
+//
+//   db.collection("users").findOne({}, function(err, data) {
+//     if(err) throw err;
+//
+//     console.log(JSON.stringify(data._id));
+//     db.collection("users").findOne({_id: new ObjectId(data._id.toString()) }, function(err, data) {
+//       if(err) throw err;
+//
+//       console.log(data);
+//       db.close();
+//     });
+//   });
+// });
 
 // var MongoClient  = require("mongodb"),
 //   ObjectId = MongoClient.ObjectID,

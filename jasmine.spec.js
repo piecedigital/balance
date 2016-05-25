@@ -223,13 +223,16 @@ describe("Testing module:", function() {
     var finances = require("./custom_modules/finances");
     expect(sh().trueType(finances)).toBe("Function");
     expect(sh().trueType(finances("foo"))).toBe("Object");
-    expect(sh().trueType(finances())).toBe("Null");
+    // expect(sh().trueType(finances())).toBe("Null");
 
-    var financesObject = finances("foo");
+    var financesObject = finances();
 
-    var goodFinancesObject = financesObject.createFinancesObject();
+    var goodFinancesObject = financesObject.createFinancesObject("foo");
     expect(sh().trueType(goodFinancesObject)).toBe("Object");
     expect(Object.keys(goodFinancesObject).length).toBe(2);
+
+    var badFinancesObject = financesObject.createFinancesObject();
+    expect(sh().trueType(badFinancesObject)).toBe("Null");
 
     // testing blocks
     var goodBlock = financesObject.addNewBlock("year");
@@ -248,6 +251,9 @@ describe("Testing module:", function() {
     var newRecord = financesObject.addRecord;
     expect(sh().trueType(newRecord)).toBe("Function");
 
+    expect(sh().trueType(newRecord("bad"))).toBe("Null");
+    expect(sh().trueType(newRecord())).toBe("Null");
+
     var goodRecord = newRecord("day");
     expect(sh().trueType(goodRecord)).toBe("Object");
     expect(Object.keys(goodRecord).length).toBe(4);
@@ -264,7 +270,10 @@ describe("Testing module:", function() {
     expect(sh().trueType(goodRecord.exception())).toBe("Null");
 
     expect(sh().trueType(goodRecord.sourceName)).toBe("Function");
-    expect(sh().trueType(goodRecord.sourceName())).toBe("Object");
+    expect(sh().trueType(goodRecord.sourceName("My Mom"))).toBe("Object");
+    expect(goodRecord.sourceName("My Mom").sourceName).toBe("My Mom");
+    expect(goodRecord.sourceName("My Mom").sourceNameFlat).toBe("my_mom");
+    expect(sh().trueType(goodRecord.sourceName())).toBe("Null");
 
     expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
     expect(sh().trueType( financesObject.addRecord("bad") )).toBe("Null");
