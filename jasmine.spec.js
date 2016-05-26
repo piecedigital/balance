@@ -5,7 +5,7 @@ describe("Testing module:", function() {
   var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
   // testing the "method-fill" module
-  it("'/custom_modules/method-fill.js'", function() {
+  xit("'/custom_modules/method-fill.js'", function() {
     require("./custom_modules/method-fill")();
     var arr = [1,2,3];
     expect(arr.includes(1)).toBe(true);
@@ -13,7 +13,7 @@ describe("Testing module:", function() {
   });
 
   // testing the "callback-router" module
-  it("'/custom_modules/callback-router.js'", function() {
+  xit("'/custom_modules/callback-router.js'", function() {
     var testNumber = 0,
     testString;
 
@@ -49,7 +49,7 @@ describe("Testing module:", function() {
   });
 
   // testing "mongo-queries" module
-  it("'/custom_modules/mongo-queries.js'", function() {
+  xit("'/custom_modules/mongo-queries.js'", function() {
     var asyncsDone = 0;
     var dbQueries = sh().Func(require("./custom_modules/mongo-queries")), queryArrayDataGood, queryObjectDataGood, queryArrayDataBad, queryObjectDataBad;
 
@@ -117,7 +117,7 @@ describe("Testing module:", function() {
   });
 
   // testing "accounts" module
-  it("'/custom_modules/accounts.js'", function() {
+  xit("'/custom_modules/accounts.js'", function() {
     var accounts = require("./custom_modules/accounts");
     var callbackDone = false,
     attempts = [];
@@ -222,8 +222,7 @@ describe("Testing module:", function() {
   it("'/custom_modules/finances.js'", function() {
     var finances = require("./custom_modules/finances");
     expect(sh().trueType(finances)).toBe("Function");
-    expect(sh().trueType(finances("foo"))).toBe("Object");
-    // expect(sh().trueType(finances())).toBe("Null");
+    expect(sh().trueType(finances())).toBe("Object");
 
     var financesObject = finances();
 
@@ -244,38 +243,35 @@ describe("Testing module:", function() {
     expect(sh().trueType(dayBlock)).toBe("Object");
     expect(Object.keys(dayBlock).length).toBe(8);
 
-    var badBlock = financesObject.addNewBlock();
-    expect(sh().trueType(badBlock)).toBe("Null");
+    expect(sh().trueType( financesObject.addNewBlock() )).toBe("Null");
+    expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
+    expect(sh().trueType( financesObject.addRecord("bad") )).toBe("Null");
 
     // testing records
     var newRecord = financesObject.addRecord;
     expect(sh().trueType(newRecord)).toBe("Function");
 
-    expect(sh().trueType(newRecord("bad"))).toBe("Null");
-    expect(sh().trueType(newRecord())).toBe("Null");
-
     var goodRecord = newRecord("day");
     expect(sh().trueType(goodRecord)).toBe("Object");
-    expect(Object.keys(goodRecord).length).toBe(4);
+    expect(Object.keys(goodRecord).length).toBe(3);
 
-    expect(sh().trueType(goodRecord.sourceOfRevenue)).toBe("Function");
-    expect(sh().trueType(goodRecord.sourceOfRevenue())).toBe("Object");
+    expect(sh().trueType(goodRecord.create)).toBe("Function");
+    expect(sh().trueType(goodRecord.create("revenue", "1000.00", {
+      sourceName: "My Job",
+      year: "2016",
+      month: "5",
+      day: "1"
+    }))).toBe("Object");
+    expect(sh().trueType(goodRecord.create())).toBe("Null");
 
-    expect(sh().trueType(goodRecord.sourceOfExpense)).toBe("Function");
-    expect(sh().trueType(goodRecord.sourceOfExpense())).toBe("Object");
-
-    expect(sh().trueType(goodRecord.exception)).toBe("Function");
-    expect(sh().trueType(goodRecord.exception(1))).toBe("Int");
-    expect(sh().trueType(goodRecord.exception(0))).toBe("Null");
-    expect(sh().trueType(goodRecord.exception())).toBe("Null");
+    expect(sh().trueType(goodRecord.createDate)).toBe("Function");
+    expect(sh().trueType(goodRecord.createDate("2016", "5", "2"))).toBe("Int");
+    expect(sh().trueType(goodRecord.createDate())).toBe("Null");
 
     expect(sh().trueType(goodRecord.sourceName)).toBe("Function");
     expect(sh().trueType(goodRecord.sourceName("My Mom"))).toBe("Object");
     expect(goodRecord.sourceName("My Mom").sourceName).toBe("My Mom");
     expect(goodRecord.sourceName("My Mom").sourceNameFlat).toBe("my_mom");
     expect(sh().trueType(goodRecord.sourceName())).toBe("Null");
-
-    expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
-    expect(sh().trueType( financesObject.addRecord("bad") )).toBe("Null");
   });
 });

@@ -8,7 +8,7 @@ module.exports = function(body) {
       callback = sh().Func(callback);
       var isValid = this.validateUser();
       if(typeof isValid !== "boolean") {
-        console.error(new Error(isValid));
+        console.error(new Error(isValid).stack);
         callback(isValid, null);
       } else {
         bcrypt.hash(sh().String(body.password), 10, function(err, hash) {

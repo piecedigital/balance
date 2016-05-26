@@ -71,7 +71,7 @@ ___
     - [accounts.js](https://github.com/piecedigital/cash-check/blob/master/accounts.md) (handles all user account creation and validation operations) **[exists]**
     - [callback-router.js](https://github.com/piecedigital/cash-check/blob/master/callback-router.md) (handles all callbacks in an array to avoid CB hell) **[exists]**
     - csrf-routes.js (handles routes that require CSRF validation) **[exists]**
-    - [finances.js](https://github.com/piecedigital/cash-check/blob/master/mongo-queries.md) (handles all DB query operations) **[exists]**
+    - [finances.js](https://github.com/piecedigital/cash-check/blob/master/finances.md) (handles all DB query operations) **[exists]**
     - [mongo-queries.js](https://github.com/piecedigital/cash-check/blob/master/mongo-queries.md) (handles all DB query operations) **[exists]**
     - routes.js (route all handling) **[exists]**
   - public/
@@ -126,9 +126,9 @@ ___
 {
   "userAccountId": String, // used to connect the user document in the "users" collection
   "moneyManagement": {
-    "years": [
+    "<blocks of a type>": [
       {
-        "year": Number,
+        "<block type name>": Number,
         "override": Boolean,
         "overrideRecords": {
           "totalRevenue": Number,
@@ -137,7 +137,8 @@ ___
         "sourcesOfRevenue": [
           {
             "sourceName": String,
-            "revenuePerMonth": Number,
+            "revenuePer<block type>": Number,
+            "once": Boolean,
             "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
           },
           ...
@@ -149,7 +150,8 @@ ___
         "sourcesOfExpenses": [
           {
             "sourceName": String,
-            "expensePerMonth": Number,
+            "expensePer<block type>": Number,
+            "once": Boolean,
           },
           ...
         ],
@@ -161,87 +163,6 @@ ___
           {
             "sourceName": String,
             "sourceNameFlat": String // source name is lower-cased and spaces are hyphenated
-          },
-          ...
-        ],
-        "months": [
-          {
-            "month": String, // January
-            "override": Boolean,
-            "overrideRecords": {
-              "totalRevenue": Number,
-              "totalEspenses": Number
-            },
-            "sourcesOfRevenue": [
-              {
-                "sourceName": String,
-                "revenuePerDay": Number,
-                "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
-                "revenueExceptions": [
-                  Number,
-                  ...
-                ]
-              },
-              ...
-            ],
-            "sourcesOfExpenses": [
-              {
-                "sourceName": String,
-                "expensePerDay": Number,
-                "expenseExceptions": [
-                  Number,
-                  ...
-                ]
-              },
-              ...
-            ],
-            "sourceNames": [ // central source for the source names of revenue/expenses
-              {
-                "sourceName": String,
-                "sourceNameFlat": String // source name is lower-cased and spaces are hyphenated
-              },
-              ...
-            ],
-            "days": [ // equal to number of days of the month
-              {
-                "day": String // day of the month
-                "override": Boolean,
-                "overrideRecords": {
-                  "totalRevenue": Number,
-                  "totalEspenses": Number
-                },
-                "sourcesOfRevenue": [
-                  {
-                    "sourceName": String,
-                    "revenuePerHour": Number,
-                    "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
-                    "revenueExceptions": [
-                      Number,
-                      ...
-                    ]
-                  },
-                  ...
-                ]
-                "sourcesOfExpenses": [
-                  {
-                    "sourceName": String,
-                    "expensePerHour": Number,
-                    "expenseExceptions": [
-                      Number,
-                      ...
-                    ]
-                  },
-                  ...
-                ],
-                "sourceNames": [ // central source for the source names of revenue/expenses
-                  {
-                    "sourceName": String,
-                    "sourceNameFlat": String // source name is lower-cased and spaces are hyphenated
-                  },
-                  ...
-                ]
-              }
-            ]
           },
           ...
         ]

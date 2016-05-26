@@ -44,41 +44,47 @@ This function accepts a string as its first and only argument. This string will 
 ## addRecord
 
 This function accepts a string as its first and only argument. This string will be equal to `year`, `month`, or `day`, the only blocks allowed. Once called it will return an object with more functions:
-- sourceOfRevenue
-- sourceOfExpense
-- exception
-- sourceName
+- `create`
+- `createDate`
+- `sourceName`
 
-### sourceOfRevenue
+### create
+
+Accepts three arguments:
+- `type` - a string equal to `revenue` or `expense`, indicating what type of record it is
+- `money` - a string of a float representing the money for the record
+- `otherData` - an object containing the necessary information to create `sourceName` and `date` properties:
+
+```json
+{
+  "sourceName": String,
+  "year": String:Integer,
+  "month": String:Integer,
+  "day": String:Integer
+}
+```
 
 Returns an object representing the revenue for the new record block:
 
 ```json
 {
-  "sourceName": String,
-  "revenuePer<blockName>": Number,
-  "taxPercentage": Number,
+  "sourceName": Object,
+  "revenuePer<block name>": Number,
+  "date": Number,
 }
 ```
 
-### sourceOfExpense
+### createDate
 
-Returns an object representing the expenses for the new record block:
+Accepts three string arguments:
 
-```json
-{
-  "sourceName": String,
-  "expensePer<blockName>": Number
-}
-```
-
-### exception
-
-Accepts a date in milliseconds and returns it. (why? For clarity sake, I think)
+- `year` - a four digit number representing the year
+- `month` - a two digit number representing the month
+- `day` - a two digit number representing the day
 
 ### sourceName
 
-To supplement the `sourceName` property of the `sourceOfRevenue` and `sourceOfExpense` blocks:
+To supplement the `sourceName` property of the new record, created with the `create` function ([seen above](https://github.com/piecedigital/cash-check/blob/master/finances.md#create)):
 
 ```json
 {
