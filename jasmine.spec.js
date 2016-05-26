@@ -5,7 +5,7 @@ describe("Testing module:", function() {
   var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
   // testing the "method-fill" module
-  xit("'/custom_modules/method-fill.js'", function() {
+  it("'/custom_modules/method-fill.js'", function() {
     require("./custom_modules/method-fill")();
     var arr = [1,2,3];
     expect(arr.includes(1)).toBe(true);
@@ -13,7 +13,7 @@ describe("Testing module:", function() {
   });
 
   // testing the "callback-router" module
-  xit("'/custom_modules/callback-router.js'", function() {
+  it("'/custom_modules/callback-router.js'", function() {
     var testNumber = 0,
     testString;
 
@@ -49,7 +49,7 @@ describe("Testing module:", function() {
   });
 
   // testing "mongo-queries" module
-  xit("'/custom_modules/mongo-queries.js'", function() {
+  it("'/custom_modules/mongo-queries.js'", function() {
     var asyncsDone = 0;
     var dbQueries = sh().Func(require("./custom_modules/mongo-queries")), queryArrayDataGood, queryObjectDataGood, queryArrayDataBad, queryObjectDataBad;
 
@@ -117,7 +117,7 @@ describe("Testing module:", function() {
   });
 
   // testing "accounts" module
-  xit("'/custom_modules/accounts.js'", function() {
+  it("'/custom_modules/accounts.js'", function() {
     var accounts = require("./custom_modules/accounts");
     var callbackDone = false,
     attempts = [];
