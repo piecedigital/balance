@@ -44,11 +44,11 @@
 //   });
 // });
 
-var logger = require("./custom_modules/error_logger");
-
-var makeLog = logger(__dirname + "/test.js", "logs/logs.txt", "logs/errors.txt");
-
-makeLog.ok("Test");
-makeLog.error("Test");
+// var logger = require("./custom_modules/error_logger");
+//
+// var makeLog = logger(__dirname + "/test.js", "logs/logs.txt", "logs/errors.txt");
+//
+// makeLog.ok("Test");
+// makeLog.error("Test");
 
 // console.log(global)

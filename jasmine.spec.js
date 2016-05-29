@@ -49,7 +49,7 @@ describe("Testing module:", function() {
   });
 
   // testing "mongo-queries" module
-  it("'/custom_modules/mongo-queries.js'", function() {
+  xit("'/custom_modules/mongo-queries.js'", function() {
     var asyncsDone = 0;
     var dbQueries = sh().Func(require("./custom_modules/mongo-queries")), queryArrayDataGood, queryObjectDataGood, queryArrayDataBad, queryObjectDataBad;
 

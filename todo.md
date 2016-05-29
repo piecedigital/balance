@@ -137,9 +137,8 @@ ___
         "sourcesOfRevenue": [
           {
             "sourceName": String,
-            "revenuePer<block type>": Number,
-            "once": Boolean,
-            "taxPercentage": Number, // between 0-100. to be converted to a decimal representation (ex: 50% = .5)
+            "money": Number,
+            "date": Number
           },
           ...
         ],
@@ -150,8 +149,8 @@ ___
         "sourcesOfExpenses": [
           {
             "sourceName": String,
-            "expensePer<block type>": Number,
-            "once": Boolean,
+            "money": Number,
+            "date": Number,
           },
           ...
         ],

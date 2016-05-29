@@ -1,26 +1,0 @@
-[Date=Thu May 26 2016 00:29:11 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:20 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:21 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:21 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:22 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:23 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:24 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:25 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:26 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:39 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:39 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:39 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:39 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:40 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:40 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:40 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:40 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:40 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:41 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:41 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:41 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:41 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:41 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:42 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-[Date=Thu May 26 2016 00:29:42 GMT-0400 (EDT); File=/home/piecedigital/cashulator/test.js; User=piecedigital] Test
-

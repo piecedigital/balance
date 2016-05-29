@@ -14,7 +14,7 @@ module.exports = function(file, okayLogFile, errorLogFile) {
 };
 
 function writeLog(message, file, filePath) {
-  var data = `[Date=${new Date()}; File=${file}; User=${process.env["USER"]}] ${message}\n\r`;
+  var data = `[Date=${new Date()}; File=${file};] ${message}\n\r`;
   fs.appendFile(path.join(__dirname, filePath), data, function(err) {
     if(err) console.error(new Error(err).stack);
   });

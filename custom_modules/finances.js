@@ -50,7 +50,7 @@ module.exports = function() {
       return {
         create(type, money, otherData) {
           type = sh().String(type);
-          money = sh().Float( parseFloat( sh().String(money) ) );
+          money = sh().Float( parseFloat(money) );
           otherData = sh().Object(otherData);
 
           if(!money || !type) {
@@ -74,7 +74,8 @@ module.exports = function() {
           return {
             sourceName,
             // uppercase the first letter of 'blockName'
-            [`${type}Per${blockName.replace(/^./, blockName[0].toUpperCase() )}`]: money,
+            // [`${type}Per${blockName.replace(/^./, blockName[0].toUpperCase() )}`]: money,
+            money,
             date
           }
         },
