@@ -2,10 +2,16 @@
 // polyfill.js
 // calculator.js ~
 // application.js
+if(typeof require === "function"){
+  var shoehorn = require("shoehornjs");
+  require("./polyfill");
+};
+var sh = shoehorn;
+
 calculator = {
-  default: function(financialData) {
-    financialData = shType().Object(financialData);
-    if(Object.empty(financialData)) {
+  calculateRecords(blockRecords) {
+    blockRecords = shoehorn().Object(blockRecords);
+    if(Object.empty(blockRecords)) {
       return console.error(new Error("No proper financial data structure provided").stack);
     };
     var returnData = {
@@ -18,24 +24,28 @@ calculator = {
     };
 
     var calc = function(record) {
-      financialData[record].map(function(value) {
-        if(returnData.grossBySource[value.sourceName.sourceNameFlat]) {
-          returnData.grossBySource[value.sourceName.sourceNameFlat].money += value.money;
+      blockRecords[record].map(function(value) {
+        var sourcePlacement = record === "expense" ? "expenseBySource" : "grossBySource",
+          flatPlacement = record === "expense" ? "expense" : "gross";
+        // console.log("value", value.sourceName.sourceNameFlat);
+        // return;
+        if(returnData[sourcePlacement][value.sourceName.sourceNameFlat]) {
+          returnData[sourcePlacement][value.sourceName.sourceNameFlat].money += value.money;
         } else {
-          returnData.grossBySource[value.sourceName.sourceNameFlat] = {
+          returnData[sourcePlacement][value.sourceName.sourceNameFlat] = {
             sourceName: value.sourceName.sourceName,
             sourceNameFlat: value.sourceName.sourceNameFlat,
             money: value.money
           };
         };
-        returnData.gross += returnData.grossBySource[record.sourceName.sourceNameFlat].money;
+        returnData[flatPlacement] += returnData[sourcePlacement][value.sourceName.sourceNameFlat].money;
       });
     };
-    financialData.map(function(_, key) {
+    blockRecords.map(function(_, key) {
       calc(key);
     });
     // gross, expense, grossBySource and expenseBySource should be completed by now
-    returnData.net = gross - expense;
+    returnData.net = returnData.gross - returnData.expense;
     // gross, expense, net, grossBySource and expenseBySource should be completed by now
 
     // grossBySource.map(function(value, key) {
@@ -49,4 +59,4 @@ calculator = {
   }
 };
 
-if(module && module.exports) module.exports.calculator = calculator;
+if(module && module.exports) module.exports = calculator;

@@ -5,7 +5,7 @@ describe("Testing module:", function() {
   var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
   // testing the "method-fill" module
-  it("'/custom_modules/method-fill.js'", function() {
+  xit("'/custom_modules/method-fill.js'", function() {
     require("./custom_modules/method-fill")();
     var arr = [1,2,3];
     expect(arr.includes(1)).toBe(true);
@@ -13,7 +13,7 @@ describe("Testing module:", function() {
   });
 
   // testing the "callback-router" module
-  it("'/custom_modules/callback-router.js'", function() {
+  xit("'/custom_modules/callback-router.js'", function() {
     var testNumber = 0,
     testString;
 
@@ -117,7 +117,7 @@ describe("Testing module:", function() {
   });
 
   // testing "accounts" module
-  it("'/custom_modules/accounts.js'", function() {
+  xit("'/custom_modules/accounts.js'", function() {
     var accounts = require("./custom_modules/accounts");
     var callbackDone = false,
     attempts = [];
@@ -219,7 +219,7 @@ describe("Testing module:", function() {
   });
 
   // testing "finances" module
-  it("'/custom_modules/finances.js'", function() {
+  xit("'/custom_modules/finances.js'", function() {
     var finances = require("./custom_modules/finances");
     expect(sh().trueType(finances)).toBe("Function");
     expect(sh().trueType(finances())).toBe("Object");
@@ -238,7 +238,7 @@ describe("Testing module:", function() {
     expect(sh().trueType(goodBlock)).toBe("Object");
     expect(Object.keys(goodBlock).length).toBe(9);
 
-    var dayBlock = financesObject.addNewBlock("day");
+    var dayBlock = financesObject.addNewBlock("day", "1");
     delete dayBlock[""];
     expect(sh().trueType(dayBlock)).toBe("Object");
     expect(Object.keys(dayBlock).length).toBe(8);
@@ -273,5 +273,42 @@ describe("Testing module:", function() {
     expect(goodRecord.sourceName("My Mom").sourceName).toBe("My Mom");
     expect(goodRecord.sourceName("My Mom").sourceNameFlat).toBe("my_mom");
     expect(sh().trueType(goodRecord.sourceName())).toBe("Null");
+  });
+
+  // testing "calculator" file
+  it("'/custom_modules/callback-router.js'", function() {
+    var finances = require("./custom_modules/finances");
+    var calculator = require("./public/js/calculator");
+
+    var financesObject = finances(),
+      financesRoot = financesObject.createFinancesObject("foo");
+    financesRoot.moneyManagement.years.push(financesObject.addNewBlock("year", "2016"));
+    financesRoot.moneyManagement.years[0].sourcesOfRevenue.push(financesObject.addRecord("year").create("revenue", 100.00, {
+      sourceName: "My Job",
+      year: "2016",
+      month: "5",
+      day: "1"
+    }));
+    financesRoot.moneyManagement.years[0].sourcesOfExpenses.push(financesObject.addRecord("year").create("expense", 50.00, {
+      sourceName: "My Bill",
+      year: "2016",
+      month: "5",
+      day: "1"
+    }));
+    // console.log(financesRoot.moneyManagement.years[0])
+    var results = calculator.calculateRecords({
+      revenue: financesRoot.moneyManagement.years[0].sourcesOfRevenue,
+      expense: financesRoot.moneyManagement.years[0].sourcesOfExpenses
+    });
+    console.log(results)
+
+
+    expect(sh().trueType(results)).toBe("Object");
+    expect(results.gross).toBe(100);
+    expect(results.expense).toBe(50);
+    expect(results.net).toBe(50);
+    expect(Object.empty(results.grossBySource)).toBe(false);
+    expect(Object.empty(results.expenseBySource)).toBe(false);
+    // expect().toBe();
   });
 });

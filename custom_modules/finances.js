@@ -17,9 +17,14 @@ module.exports = function() {
         }
       }
     },
-    addNewBlock(blockName) {
+    addNewBlock(blockName, date) {
       blockName = sh().String(blockName).toLowerCase();
+      date = sh().String(date).toLowerCase();
       // cancel the rest of this script if the return value from 'index' is < 0
+      if(!blockName || !date) {
+        console.log(new Error("Missing block name or a date").stack);
+        return null;
+      };
 
       if(!allBlocks.includes(blockName)) {
         console.error(new Error(`Invalid block name: ${blockName}`).stack)
@@ -27,10 +32,11 @@ module.exports = function() {
       };
       return {
         blockName,
+        date,
         "override": null,
         "overrideRecords": {
           "totalRevenue": 0,
-          "totalEspenses": 0
+          "totalExpenses": 0
         },
         "sourcesOfRevenue": [],
         "revenueExceptions": [],
