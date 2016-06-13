@@ -5,7 +5,7 @@ describe("Testing module:", function() {
   var callbackRouter = sh().Func(require("./custom_modules/callback-router"));
 
   // testing the "method-fill" module
-  xit("'/custom_modules/method-fill.js'", function() {
+  it("'/custom_modules/method-fill.js'", function() {
     require("./custom_modules/method-fill")();
     var arr = [1,2,3];
     expect(arr.includes(1)).toBe(true);
@@ -13,7 +13,7 @@ describe("Testing module:", function() {
   });
 
   // testing the "callback-router" module
-  xit("'/custom_modules/callback-router.js'", function() {
+  it("'/custom_modules/callback-router.js'", function() {
     var testNumber = 0,
     testString;
 
@@ -117,7 +117,7 @@ describe("Testing module:", function() {
   });
 
   // testing "accounts" module
-  xit("'/custom_modules/accounts.js'", function() {
+  it("'/custom_modules/accounts.js'", function() {
     var accounts = require("./custom_modules/accounts");
     var callbackDone = false,
     attempts = [];
@@ -219,7 +219,7 @@ describe("Testing module:", function() {
   });
 
   // testing "finances" module
-  xit("'/custom_modules/finances.js'", function() {
+  it("'/custom_modules/finances.js'", function() {
     var finances = require("./custom_modules/finances");
     expect(sh().trueType(finances)).toBe("Function");
     expect(sh().trueType(finances())).toBe("Object");
@@ -234,14 +234,14 @@ describe("Testing module:", function() {
     expect(sh().trueType(badFinancesObject)).toBe("Null");
 
     // testing blocks
-    var goodBlock = financesObject.addNewBlock("year");
+    var goodBlock = financesObject.addNewBlock("year", "2016");
     expect(sh().trueType(goodBlock)).toBe("Object");
-    expect(Object.keys(goodBlock).length).toBe(9);
+    expect(Object.keys(goodBlock).length).toBe(10);
 
     var dayBlock = financesObject.addNewBlock("day", "1");
     delete dayBlock[""];
     expect(sh().trueType(dayBlock)).toBe("Object");
-    expect(Object.keys(dayBlock).length).toBe(8);
+    expect(Object.keys(dayBlock).length).toBe(9);
 
     expect(sh().trueType( financesObject.addNewBlock() )).toBe("Null");
     expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
@@ -276,7 +276,7 @@ describe("Testing module:", function() {
   });
 
   // testing "calculator" file
-  it("'/custom_modules/callback-router.js'", function() {
+  it("'/public/js/calculator.js'", function() {
     var finances = require("./custom_modules/finances");
     var calculator = require("./public/js/calculator");
 

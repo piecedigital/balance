@@ -49,8 +49,8 @@ ___
     - path (comes with node) **[obtained]**
     - [shoehornjs](http://npmjs.com/package/shoehornjs) **[obtained]**
 - Client
-  - React
-  - Sass
+  - React **[link to]**
+  - Sass **[exists]**
     - [layoutcss](http://npmjs.com/package/layoutcss)
 
 ### Development Tools
@@ -76,8 +76,8 @@ ___
     - routes.js (route all handling) **[exists]**
   - public/
     - js/
-      - calculator.js (handles all calculations through various functions)
-      - jquery-1.12.x.min.js
+      - calculator.js (handles all calculations through various functions) **[exists]**
+      - jquery-1.12.x.min.js **(?)**
       - react-app.js (the entire app view)
     - css/
       - home-page.scss
@@ -87,12 +87,12 @@ ___
     - images/
   - views/
   - private/
-    - private-data.js
-  - app.js
-  - Procfile =
+    - private-data.js **[exists]**
+  - app.js **[exists]**
+  - Procfile = **[exists]**
     - "web: node app.js"
-  - .gitignore
-  - jasmine.spec.js (handles the initiation of all jasmine tests)
+  - .gitignore **[exists]**
+  - jasmine.spec.js (handles the initiation of all jasmine tests) **[exists]**
 
 ### Data structures
 #### User account info. Collection: users
@@ -129,10 +129,11 @@ ___
     "<blocks of a type>": [
       {
         "<block type name>": Number,
+        "date": String,
         "override": Boolean,
         "overrideRecords": {
           "totalRevenue": Number,
-          "totalEspenses": Number
+          "totalExpenses": Number
         },
         "sourcesOfRevenue": [
           {
