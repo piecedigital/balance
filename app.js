@@ -12,14 +12,13 @@ var express 		 = require("express"),
 
 // development modules
 require("./private/private-data")();
-app.use(logger('dev'));
+app.use( logger( (process.env["NODE_ENV"] || "dev").toLowerCase() ) );
 
 // config
 // view engine setup
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set("view options", { layout: "layout" });
 // app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

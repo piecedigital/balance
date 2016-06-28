@@ -7,7 +7,7 @@ app
   next();
 })
 .get("/", function(req, res, next) {
-  res.render("index", {});
+  res.render("layout", { page: "index" });
 })
 .get("/account", function(req, res, next) {
 })
