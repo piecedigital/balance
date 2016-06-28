@@ -30,10 +30,11 @@ module.exports = function() {
         console.error(new Error(`Invalid block name: ${blockName}`).stack)
         return null;
       };
-      return {
+      var newBlock = {
         blockName,
         date,
-        "override": null,
+        "overrideRevenue": false,
+        "overrideExpenses": false,
         "overrideRecords": {
           "totalRevenue": 0,
           "totalExpenses": 0
@@ -42,10 +43,13 @@ module.exports = function() {
         "revenueExceptions": [],
         "sourcesOfExpenses": [],
         "expenseExceptions": [],
-        "sourceNames": [],
-        // this will either create the next block or make a blank
-        [blockName !== "day" ? `${allBlocks[allBlocks.indexOf(blockName)+1]}s` : ""]: blockName !== "day" ? [] : undefined
+        "sourceNames": []
       }
+      // create the next block or don't
+      if(blockName !== "day") {
+        newBlock[`${allBlocks[allBlocks.indexOf(blockName)+1]}s`] = []
+      }
+      return newBlock;
     },
     addRecord(blockName) {
       blockName = sh().String(blockName).toLowerCase();
@@ -56,7 +60,7 @@ module.exports = function() {
       return {
         create(type, money, otherData) {
           type = sh().String(type);
-          money = sh().Float( parseFloat(money) );
+          money = sh().Int( parseInt(money) );
           otherData = sh().Object(otherData);
 
           if(!money || !type) {
@@ -69,9 +73,10 @@ module.exports = function() {
           };
 
           var sourceName = sh().Object(this.sourceName(otherData.sourceName));
+          var notes = sh().Object(otherData.notes);
           var date = sh().Int(this.createDate(otherData.year, otherData.month, otherData.day));
 
-          if(!date || !sourceName) return null;
+          if(!date || !sourceName || !notes) return null;
           if(type !== "expense" && type !== "revenue") {
             console.error(new Error("Record type is not allowed").stack);
             return null;
@@ -82,7 +87,8 @@ module.exports = function() {
             // uppercase the first letter of 'blockName'
             // [`${type}Per${blockName.replace(/^./, blockName[0].toUpperCase() )}`]: money,
             money,
-            date
+            date,
+            notes
           }
         },
         createDate(year, month, day) {

@@ -130,7 +130,9 @@ ___
       {
         "<block type name>": Number,
         "date": String,
-        "override": Boolean,
+        "<blocks of a type>": [...], // gets added later when needed
+        "overrideRevenue": Boolean,
+        "overrideExpenses": Boolean,
         "overrideRecords": {
           "totalRevenue": Number,
           "totalExpenses": Number
@@ -138,25 +140,18 @@ ___
         "sourcesOfRevenue": [
           {
             "sourceName": String,
-            "money": Number,
-            "date": Number
+            "money": Number, // in cents
+            "date": Number,
+            "notes": String
           },
-          ...
-        ],
-        "revenueExceptions": [
-          Number,
           ...
         ],
         "sourcesOfExpenses": [
           {
             "sourceName": String,
-            "money": Number,
+            "money": Number, // in cents
             "date": Number,
           },
-          ...
-        ],
-        "expenseExceptions": [
-          Number,
           ...
         ],
         "sourceNames": [ // central source for the source names of revenue/expenses

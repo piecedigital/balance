@@ -236,12 +236,12 @@ describe("Testing module:", function() {
     // testing blocks
     var goodBlock = financesObject.addNewBlock("year", "2016");
     expect(sh().trueType(goodBlock)).toBe("Object");
-    expect(Object.keys(goodBlock).length).toBe(10);
+    expect(Object.keys(goodBlock).length).toBe(11);
 
     var dayBlock = financesObject.addNewBlock("day", "1");
-    delete dayBlock[""];
+    // delete dayBlock[""];
     expect(sh().trueType(dayBlock)).toBe("Object");
-    expect(Object.keys(dayBlock).length).toBe(9);
+    expect(Object.keys(dayBlock).length).toBe(10);
 
     expect(sh().trueType( financesObject.addNewBlock() )).toBe("Null");
     expect(sh().trueType( financesObject.addRecord() )).toBe("Null");
